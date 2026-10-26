@@ -169,16 +169,22 @@
             color: #000;
         }
 
-        /* Google Scholar — Google blue, softened */
+        /* Google Scholar — full-color badge */
         .hero-icon-btn.btn-scholar {
-            background: #e8f0fe;
-            border-color: #9cbdf5;
-            color: #4285f4;
+            background: transparent;
+            border: none;
+            padding: 0;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+        .hero-icon-btn.btn-scholar img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            display: block;
         }
         .hero-icon-btn.btn-scholar:hover {
-            background: #d7e5fc;
-            border-color: #6b9bf0;
-            color: #1a66d0;
+            opacity: 0.85;
         }
 
         /* ── Section base ── */
@@ -561,9 +567,7 @@
 
                 <!-- Google Scholar -->
                 <a class="hero-icon-btn btn-scholar" href="https://scholar.google.com/citations?user=cYDWuYIAAAAJ&amp;hl=en" target="_blank" rel="noopener" title="Google Scholar">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <text x="12" y="18" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="21" font-weight="700" fill="currentColor">g</text>
-                    </svg>
+                    <img src="logoGoogle.jpg" alt="Google Scholar">
                 </a>
 
             </div>
