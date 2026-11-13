@@ -228,6 +228,10 @@
             align-items: flex-start;
         }
 
+        .paper + .paper {
+            margin-top: 28px;
+        }
+
         .paper-thumb {
             width: 110px;
             height: 80px;
@@ -520,6 +524,20 @@
             animation: lb-in 0.2s ease;
         }
 
+        .lightbox-img.paper-full {
+            width: auto;
+            height: auto;
+            max-width: 92vw;
+            max-height: 88vh;
+            border-radius: 6px;
+            object-fit: contain;
+            background: #fff;
+        }
+
+        .paper-thumb {
+            cursor: zoom-in;
+        }
+
         @keyframes lb-in {
             from { opacity: 0; transform: scale(0.88); }
             to   { opacity: 1; transform: scale(1); }
@@ -601,6 +619,47 @@
     <!-- Research -->
     <section id="research">
         <h2>Research</h2>
+        <div class="paper">
+            <img class="paper-thumb" src="research_assets/train_pipeline.jpeg" alt="Multi-agent transfusion reaction feature extraction pipeline">
+            <div>
+                <div class="paper-title">
+                    Multi-Agent Generative Artificial Intelligence for Transfusion Reaction Feature Extraction
+                </div>
+                <div class="paper-authors">Ayushi Kumari, Jeremy W. Jacobs, Laura Dilly, Aman Anand, Jennifer Woo, Yulia Lin, Andrew Shih, Garrett S. Booth, Ismail Raslan, Nicole Relke, Rounak Dubey, Siddhartha Srivastava, Widad Abdulwahab, Ruchika Goel, Sheharyar Raza</div>
+                <div style="margin-bottom:8px;">
+                    <span class="venue-badge">medRxiv</span>
+                    &nbsp;<span style="font-size:12px; color:var(--text-muted);">Preprint, 2026</span>
+                </div>
+                <p class="paper-abstract">
+                    Built an open-source, multi-agent LLM pipeline that extracts transfusion reaction features
+                    defined by the NHSN Hemovigilance Module (181 curated features), along with their timing and
+                    clinical details, from free-text clinical notes. Evaluated 3 open-weight LLMs on 50 notes
+                    (expert scenarios, case reports, MIMIC-IV), with blinded review by 10 physicians. Precision
+                    exceeded <strong>0.98</strong> for all models; Kimi K3 achieved the highest sensitivity of <strong>0.774</strong>.
+                </p>
+                <div>
+                    <!-- Paper link -->
+                    <a class="icon-link" href="https://www.medrxiv.org/content/10.64898/2026.11.06.26367389v1" target="_blank" rel="noopener" title="Preprint">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                        preprint
+                    </a>
+                    <!-- GitHub link -->
+                    <a class="icon-link" href="https://github.com/Ayu-98-kumari/Multi-Agent-Generative-Artificial-Intelligence-for-Transfusion-Reaction-Feature-Extraction" target="_blank" rel="noopener" title="Code">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                        code
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <div class="paper">
             <img class="paper-thumb" src="research_assets/path-clip.png" alt="Clinical Concept Sensitivity paper figure">
             <div>
@@ -773,6 +832,10 @@
         <img class="lightbox-img" src="Image_2.jpg" alt="Ayushi Kumari">
     </div>
 
+    <div class="lightbox-overlay" id="paperLightbox">
+        <img class="lightbox-img paper-full" id="paperLightboxImg" src="" alt="">
+    </div>
+
     <script>
         // Nav active highlight
         const sections = document.querySelectorAll('section[id]');
@@ -801,8 +864,25 @@
         lightbox.addEventListener('click', () => {
             lightbox.classList.remove('open');
         });
+        // Paper figure lightbox
+        const paperLightbox = document.getElementById('paperLightbox');
+        const paperLightboxImg = document.getElementById('paperLightboxImg');
+        document.querySelectorAll('.paper-thumb').forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                paperLightboxImg.src = thumb.src;
+                paperLightboxImg.alt = thumb.alt;
+                paperLightbox.classList.add('open');
+            });
+        });
+        paperLightbox.addEventListener('click', () => {
+            paperLightbox.classList.remove('open');
+        });
+
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') lightbox.classList.remove('open');
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('open');
+                paperLightbox.classList.remove('open');
+            }
         });
     </script>
 
